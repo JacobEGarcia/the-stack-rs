@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>THE STACK — a 1000-enemy physics benchmark (Rust)</title>
+<meta name="description" content="One thousand enemies. One pile. One you. A physics benchmark you can play, built in Rust on Bevy.">
+<style>
+  html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#f2f0ea}
+  body{font-family:ui-monospace,'SF Mono',Menlo,Consolas,monospace;color:#1b1a17}
+  #bevy{display:block;width:100vw;height:100vh;touch-action:none}
+  #loading{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
+    background:
+      repeating-linear-gradient(0deg,rgba(27,26,23,.06) 0 1px,transparent 1px 96px),
+      repeating-linear-gradient(90deg,rgba(27,26,23,.06) 0 1px,transparent 1px 96px),
+      #f2f0ea;
+    z-index:10;transition:opacity .3s;
+  }
+  #loading.done{opacity:0;pointer-events:none}
+  .ld{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(27,26,23,.6);text-align:center;line-height:2.2}
+  .ld b{display:block;font-weight:400;font-size:11px;color:#1b1a17}
+</style>
+</head>
+<body>
+<canvas id="bevy"></canvas>
+<div id="loading"><div class="ld"><b>THE STACK</b>compiling one thousand enemies&hellip;</div></div>
+<script type="module">
+  import init from './the_stack.js';
+  init('./the_stack_bg.wasm').then(() => {
+    document.getElementById('loading').classList.add('done');
+  }).catch((e) => {
+    document.querySelector('.ld').innerHTML = '<b>THE STACK</b>failed to load: ' + e;
+  });
+</script>
+</body>
+</html>
